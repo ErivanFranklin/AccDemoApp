@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
 
@@ -11,11 +11,11 @@ export class ToolbarComponent implements OnInit {
 
   userName: string | undefined;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) {
+  }
 
   ngOnInit(): void {
     this.userName = JSON.parse(<string>localStorage.getItem("user"))[0].username;
-    console.log(this.userName);
   }
 
   logout() {

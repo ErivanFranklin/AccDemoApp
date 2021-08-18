@@ -3,6 +3,7 @@ import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
 import {User} from "../model/User";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class LoginComponent implements OnInit {
 
+  private subscriptions: Subscription[] = [];
   private errorMessage: string | undefined;
 
   form = new FormGroup({
@@ -34,14 +36,22 @@ export class LoginComponent implements OnInit {
 
   submit(user: User){
     if (this.form.valid){
-      this.userService.logIn(user).subscribe((response) => {
-        this.userService.setUserInfoLocalStorage(response);
-        this.router.navigateByUrl("/user");
-      },(error) => {
-        console.log(error);
-      });
+      this.subscriptions.push(
+        this.userService.logIn(user).subscribe((response) => {
+          this.userService.setUserInfoLocalStorage(response);
+          this.router.navigateByUrl("/user");
+        },(error) => {
+          console.log(error);
+        })
+      );
     }else{
       this.errorMessage = 'Username or password invalid';
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => {
+      sub.unsubscribe();
+    });
   }
 }

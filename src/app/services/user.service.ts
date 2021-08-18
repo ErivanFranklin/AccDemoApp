@@ -35,23 +35,23 @@ export class UserService {
     localStorage.setItem('usersPosts', JSON.stringify(users));
   }
 
-  setUserLocalStorage(users: any){
+  setUserLocalStorage(users: any) {
     localStorage.setItem('users', JSON.stringify(users));
   }
 
-  getUsersPostsFromLocalStorage(){
+  getUsersPostsFromLocalStorage() {
     return JSON.parse(<string>localStorage.getItem('usersPosts'));
   }
 
-  removeUsersPostFromLocalStorage(){
+  removeUsersPostFromLocalStorage() {
     localStorage.removeItem("usersPosts");
   }
 
-  removeUserFromLocalStorage(){
+  removeUserFromLocalStorage() {
     localStorage.removeItem("user");
   }
 
-  saveUserPostToLocalStorage(post: UserPost): Observable<UserPost>{
+  saveUserPostToLocalStorage(post: UserPost): Observable<UserPost> {
 
     return new Observable((observer: Observer<UserPost>) => {
       let posts = this.getUsersPostsFromLocalStorage();

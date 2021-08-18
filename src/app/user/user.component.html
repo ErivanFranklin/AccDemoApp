@@ -6,13 +6,14 @@
 </nav>
 
 <div class="add-post-action">
-  <button mat-button (click)="addPostDialog()">
-    <mat-icon>add</mat-icon>Add Post
+  <button (click)="addPostDialog()" mat-button>
+    <mat-icon>add</mat-icon>
+    Add Post
   </button>
 </div>
 
-<div class="content" *ngIf="activeInk == 0">
-  <a *ngFor="let post of usersPosts" style="margin: 20px" [hidden]="post.userId != user.id">
+<div *ngIf="activeInk == 0" class="content">
+  <a *ngFor="let post of usersPosts" [hidden]="post.userId != user.id" style="margin: 20px">
     <mat-card>
       <mat-card-header>
         <mat-card-subtitle>{{getUserName(post.userId)}}</mat-card-subtitle>
@@ -24,7 +25,7 @@
     </mat-card>
   </a>
 </div>
-<div class="content" *ngIf="activeInk == 1">
+<div *ngIf="activeInk == 1" class="content">
   <a *ngFor="let post of usersPosts" style="margin: 20px">
     <div *ngIf="activeInk == 1">
       <mat-card>
