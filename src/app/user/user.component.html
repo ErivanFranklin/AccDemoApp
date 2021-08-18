@@ -15,8 +15,8 @@
   <a *ngFor="let post of usersPosts" style="margin: 20px" [hidden]="post.userId != user.id">
     <mat-card>
       <mat-card-header>
+        <mat-card-subtitle>{{getUserName(post.userId)}}</mat-card-subtitle>
         <mat-card-title>{{post.title}}</mat-card-title>
-        <mat-card-subtitle>Tab 00 {{post.userId}}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <p>{{post.body}}</p>
@@ -27,10 +27,10 @@
 <div class="content" *ngIf="activeInk == 1">
   <a *ngFor="let post of usersPosts" style="margin: 20px">
     <div *ngIf="activeInk == 1">
-      <mat-card >
+      <mat-card>
+        <mat-card-subtitle>{{getUserName(post.userId)}}</mat-card-subtitle>
         <mat-card-header>
           <mat-card-title>{{post.title}}</mat-card-title>
-          <mat-card-subtitle>Tab 01 {{post.userId}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
           <p>{{post.body}}</p>

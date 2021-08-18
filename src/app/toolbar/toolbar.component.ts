@@ -9,9 +9,13 @@ import {Router} from "@angular/router";
 })
 export class ToolbarComponent implements OnInit {
 
+  userName: string | undefined;
+
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
+    this.userName = JSON.parse(<string>localStorage.getItem("user"))[0].username;
+    console.log(this.userName);
   }
 
   logout() {

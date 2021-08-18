@@ -7,42 +7,26 @@
     height: 40%;
     display: flex;
     align-items: center;
-    background-color: #1976d2;
+    background-color: #3f51b5;
     color: white;
     font-weight: 600;
   }
 </style>
 
 <div class="banner"></div>
-<!--<div class="content" role="main">-->
-<!--  <div class="card login-card" target="_blank">-->
-<!--    <form [formGroup]="form" (ngSubmit)="submit(form.value)">-->
-<!--      <div class="form-group">-->
-<!--        <input-->
-<!--          formControlName="email" type="text" class="form-control">-->
-<!--        <div *ngIf="f.email.touched && f.email.invalid" class="alert alert-danger">-->
-<!--          <div *ngIf="f.email.errors && f.email.errors.required">Email is required.</div>-->
-<!--          <div *ngIf="f.email.errors && f.email.errors.email">Please, enter valid email address.</div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <button class="btn btn-primary" type="submit">Submit</button>-->
-<!--    </form>-->
-<!--  </div>-->
-<!--</div>-->
-
 <div class="content">
   <mat-card>
+    <mat-icon class="login-icon">account_circle</mat-icon>
     <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Login</mat-card-title>
+      <mat-card-title class="login-tile">Login</mat-card-title>
     </mat-card-header>
     <form [formGroup]="form" (ngSubmit)="submit(form.value)">
       <mat-card-content>
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline" class="login-field">
             <mat-label>Enter your email</mat-label>
-            <input matInput placeholder="pat@example.com" formControlName="email" type="text" class="form-control">
+          <input matInput placeholder="pat@example.com" formControlName="email" type="text" class="form-control">
         </mat-form-field>
-        <div *ngIf="f.email.touched && f.email.invalid" class="alert alert-danger">
+        <div *ngIf="f.email.touched && f.email.invalid" class="alert-danger">
           <div *ngIf="f.email.errors && f.email.errors.required">Email is required.</div>
           <div *ngIf="f.email.errors && f.email.errors.email">Please, enter valid email address.</div>
         </div>

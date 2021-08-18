@@ -23,6 +23,9 @@ export class UserService {
     return this.http.get<any>(`${this.host}/posts?`);
   }
 
+  getUsers(): Observable<any> {
+    return this.http.get<any>(`${this.host}/users?`);
+  }
 
   setUserInfoLocalStorage(user: User[]) {
     localStorage.setItem("user", JSON.stringify(user))
@@ -30,6 +33,10 @@ export class UserService {
 
   setUsersPostsLocalStorage(users: any) {
     localStorage.setItem('usersPosts', JSON.stringify(users));
+  }
+
+  setUserLocalStorage(users: any){
+    localStorage.setItem('users', JSON.stringify(users));
   }
 
   getUsersPostsFromLocalStorage(){
@@ -51,7 +58,6 @@ export class UserService {
       this.removeUsersPostFromLocalStorage();
       posts.unshift(post);
       this.setUsersPostsLocalStorage(posts);
-      debugger
       observer.next(posts);
     });
   }
@@ -68,6 +74,5 @@ export class UserService {
 
   logOut() {
     this.removeUserFromLocalStorage();
-    this.removeUsersPostFromLocalStorage();
   }
 }

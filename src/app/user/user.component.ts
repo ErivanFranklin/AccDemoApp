@@ -14,6 +14,7 @@ export class UserComponent implements OnInit {
   background: ThemePalette = undefined;
 
   user: any;
+  users: any;
   usersPosts: any;
   activeInk:number = 0;
   loading: boolean = true;
@@ -33,6 +34,7 @@ export class UserComponent implements OnInit {
 
         // Retrieve info from localstorage
         this.user = JSON.parse(<string>localStorage.getItem('user'))[0];
+        this.users = JSON.parse(<string>localStorage.getItem('users'));
         this.usersPosts = JSON.parse(<string>localStorage.getItem('usersPosts'));
 
         // Call api in case users posts are not on storage
@@ -43,6 +45,15 @@ export class UserComponent implements OnInit {
             this.userService.setUsersPostsLocalStorage(response);
             return response;
           })
+        }
+
+        if (!this.users){
+          this.userService.getUsers().subscribe((response) => {
+
+            this.users = response;
+            this.userService.setUserLocalStorage(response);
+            return response;
+          });
         }
       }
     }else{
@@ -58,14 +69,20 @@ export class UserComponent implements OnInit {
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {userId: this.user.id, id: this.usersPosts[this.usersPosts.length -1].id + 1}
-    dialogConfig.width = "50vm";
-    dialogConfig.height = "70vm";
+    dialogConfig.disableClose = true;
+    dialogConfig.panelClass  = "post-dialog";
 
     const dialogRef = this.dialog.open(AddPostDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(post => {
-      this.userService.saveUserPostToLocalStorage(post).subscribe(posts => {
-        this.usersPosts = posts;
-      });
+      if (post){
+        this.userService.saveUserPostToLocalStorage(post).subscribe(posts => {
+          this.usersPosts = posts;
+        });
+      }
     });
+  }
+
+  getUserName(userId: number) {
+    return this.users.find((user: { id: number; }) => user.id == userId).username;
   }
 }
