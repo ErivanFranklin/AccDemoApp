@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  padding-top: 15px;
+}
+
+.card-content {
+  text-decoration: none;
+  display: flex;
+  margin: 15px;
+}
+
+.mat-card-header-text {
+  margin: 0px !important;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

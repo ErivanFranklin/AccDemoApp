@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Create Post dialog</h2>
+<form [formGroup]="form" (ngSubmit)="submit(form.value)">
+<mat-dialog-content class="mat-typography" layout="column">
+    <mat-form-field appearance="outline">
+      <mat-label>Post title</mat-label>
+      <input matInput placeholder="Title" formControlName="title" type="text" class="form-control">
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Textarea</mat-label>
+      <textarea matInput formControlName="body" type="textarea" class="form-control"></textarea>
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button type="submit" cdkFocusInitial>Save</button>
+</mat-dialog-actions>
+</form>
