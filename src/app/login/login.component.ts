@@ -4,6 +4,8 @@ import {Router} from "@angular/router";
 import {User} from "../model/User";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
+import {NotificationService} from "../services/notification.service";
+import {NotificationType} from "../enum/notification-type";
 
 @Component({
   selector: 'app-login',
@@ -19,10 +21,11 @@ export class LoginComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
   });
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router, private notificationService:NotificationService) { }
 
   ngOnInit(): void {
 
+    // It checks if the user is logged in otherwise go to the login page
     if(this.userService.isLoggedIn()){
       this.router.navigateByUrl("/user");
     }else{
@@ -38,10 +41,15 @@ export class LoginComponent implements OnInit {
     if (this.form.valid){
       this.subscriptions.push(
         this.userService.logIn(user).subscribe((response) => {
-          this.userService.setUserInfoLocalStorage(response);
-          this.router.navigateByUrl("/user");
+          if (response.length){
+            this.userService.setUserInfoLocalStorage(response);
+            this.router.navigateByUrl("/user");
+          }else{
+            console.log("HEHEHEHEH")
+            this.notificationService.notify(NotificationType.WARNING, "Email not found");
+          }
         },(error) => {
-          console.log(error);
+          this.notificationService.notify(NotificationType.ERROR, "Something went wrong");
         })
       );
     }else{

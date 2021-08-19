@@ -12,6 +12,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MaterialModule} from "./material.module";
 import {CommonModule} from "@angular/common";
 import { AddPostDialogComponent } from './add-post-dialog/add-post-dialog.component';
+import {NotificationModule} from "./notificatin.module";
+import {NotificationService} from "./services/notification.service";
 
 @NgModule({
   declarations: [
@@ -29,9 +31,10 @@ import { AddPostDialogComponent } from './add-post-dialog/add-post-dialog.compon
     HttpClientModule,
     BrowserAnimationsModule,
     CommonModule,
+    NotificationModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

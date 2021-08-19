@@ -5,6 +5,8 @@ import {Router} from "@angular/router";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {AddPostDialogComponent} from "../add-post-dialog/add-post-dialog.component";
 import {Subscription} from "rxjs";
+import {NotificationService} from "../services/notification.service";
+import {NotificationType} from "../enum/notification-type";
 
 @Component({
   selector: 'app-user',
@@ -25,12 +27,12 @@ export class UserComponent implements OnInit {
     this.background = this.background ? undefined : 'primary';
   }
 
-  constructor(private userService: UserService, private router: Router, private dialog: MatDialog) {
+  constructor(private userService: UserService, private router: Router, private dialog: MatDialog, private notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
 
-    // check if the user is on localstorage
+    // It checks if the user is logged in first, otherwise go to the login page
     if (this.userService.isLoggedIn()) {
 
       if (this.loading) {
@@ -52,6 +54,7 @@ export class UserComponent implements OnInit {
           )
         }
 
+        // Users data to make username on card
         if (!this.users) {
           this.subscriptions.push(
             this.userService.getUsers().subscribe((response) => {
@@ -74,6 +77,7 @@ export class UserComponent implements OnInit {
 
   addPostDialog() {
 
+    // Create post dialog
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {userId: this.user.id, id: this.usersPosts[this.usersPosts.length - 1].id + 1}
     dialogConfig.disableClose = true;
@@ -81,10 +85,13 @@ export class UserComponent implements OnInit {
 
     const dialogRef = this.dialog.open(AddPostDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(post => {
+
+      //Check if there is a post valid otherwise do nothing
       if (post) {
         this.subscriptions.push(
           this.userService.saveUserPostToLocalStorage(post).subscribe(posts => {
             this.usersPosts = posts;
+            this.notificationService.notify(NotificationType.SUCCESS, "New post was created");
           })
         );
       }
