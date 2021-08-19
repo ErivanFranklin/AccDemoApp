@@ -1,7 +1,7 @@
 <script src="user.component.ts"></script>
 <app-toolbar></app-toolbar>
 <nav [backgroundColor]="background" mat-tab-nav-bar>
-  <a (click)="tabClicked(0)" [active]="activeInk ==  0" mat-tab-link>User Post</a>
+  <a (click)="tabClicked(0)" [active]="activeInk ==  0" mat-tab-link>User Posts</a>
   <a (click)="tabClicked(1)" [active]="activeInk ==  1" mat-tab-link>Other Posts</a>
 </nav>
 
@@ -26,7 +26,7 @@
   </a>
 </div>
 <div *ngIf="activeInk == 1" class="content">
-  <a *ngFor="let post of usersPosts" style="margin: 20px">
+  <a *ngFor="let post of usersPosts" style="margin: 20px" class="post-list" [hidden]="post.userId == user.id">
     <div *ngIf="activeInk == 1">
       <mat-card>
         <mat-card-subtitle>{{getUserName(post.userId)}}</mat-card-subtitle>

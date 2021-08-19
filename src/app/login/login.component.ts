@@ -45,7 +45,6 @@ export class LoginComponent implements OnInit {
             this.userService.setUserInfoLocalStorage(response);
             this.router.navigateByUrl("/user");
           }else{
-            console.log("HEHEHEHEH")
             this.notificationService.notify(NotificationType.WARNING, "Email not found");
           }
         },(error) => {
